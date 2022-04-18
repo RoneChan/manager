@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.ProjectMapper">
+    <select id="getProjectProfile" resultType="com.example.demo.entity.ProjectProfile">
+        SELECT * FROM project_profile where id=#{id} AND test_system=#{test_system};
+    </select>
+
+    <select id="getProjectList" resultType="com.example.demo.entity.ProjectProfile">
+        SELECT id, name, project_type, host, test_system FROM project_profile where year=${year} limit ${startNum},${endNum};
+    </select>
+
+    <select id="getProjectProgress" resultType="com.example.demo.entity.ProjectProgress">
+        SELECT * FROM project_progress where id=#{id};
+    </select>
+
+    <select id="getTesterName" resultType="java.lang.String">
+        SELECT distinct tester_name FROM workload where id=#{id} AND test_system=#{test_system};
+    </select>
+
+    <select id="getTesterWorkload" resultType="com.example.demo.entity.TesterWorkload">
+        SELECT tester_name,month,workload FROM tester_workload where id=#{id} AND year=${year};
+    </select>
+
+</mapper>
