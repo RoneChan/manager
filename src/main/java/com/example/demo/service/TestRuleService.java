@@ -2,9 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.dto.TestRuleManage;
 import com.example.demo.mapper.TestRuleMapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
