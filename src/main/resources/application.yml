@@ -1,16 +1,12 @@
 server:
-  port: 8086
-  servlet:
-#  context-path: /testcase
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
-#    数据库
+  port: 8060
 spring:
   datasource:
     username: mucheng
     url: jdbc:mysql://localhost:3306/mysql
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+
 #   redis
 redis:
   port: 6379
@@ -25,3 +21,15 @@ redis:
 logging:
   level:
     com.dormitory.mapper: debug
+
+
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+
+
+upload:
+    PICT-path: E:/RuleAssets/PICT/
+    graphwalker-path: E:/RuleAssets/Graphwalker/
+
+address:
+    webip: http://127.0.0.1:8080/
