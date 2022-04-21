@@ -38,7 +38,7 @@ public class TestRuleManage {
     // 测试规则表达式
     private String ruleRepresentation;
     // 功能用例、自动化用例编号
-    private Integer caseNumer;
+    private Integer caseNumber;
     // 设计者
     private String designName;
     //提交时间
