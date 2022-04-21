@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * @author mucheng
+ * @dateTime: 2022-04-16
+ * @description: 测试规则生成测试用例的Controller
+ * */
 
 @RestController
 @RequestMapping("/ruleGenerateTestCase/*")
