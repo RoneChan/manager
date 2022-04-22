@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.TestRuleManage;
 import com.example.demo.mapper.TestRuleMapper;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @dateTime: 2022-04-18
  * @description: 测试规则service
  * */
+@Service
 public class TestRuleService {
 
     @Resource

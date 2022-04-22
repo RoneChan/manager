@@ -8,9 +8,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+/**
+ * @author mucheng
+ * @dateTime;2022-04-21
+ * @description: 测试规则mapper
+ * */
 
-//与数据库交互
-@Mapper
 public interface TestRuleMapper {
 
     //根据交易名查询所有有效的测试规则
