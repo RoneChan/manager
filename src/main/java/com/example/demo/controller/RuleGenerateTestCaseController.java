@@ -2,9 +2,7 @@ package com.example.demo.controller;
 import com.example.demo.Vo.ResultVo;
 import com.example.demo.constant.ResutEnum;
 import com.example.demo.service.TestRuleService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -27,7 +25,7 @@ public class RuleGenerateTestCaseController {
         return "Success!!!!!!";
     }
 
-    //显示所有学生成绩信息
+    //显示所有规则信息
     @GetMapping("/getTestRules")
     public ResultVo getTestRules() {
         System.out.println("Hello World");
@@ -35,5 +33,13 @@ public class RuleGenerateTestCaseController {
 //        ResultVo result;
 //        result = new ResultVo(ResutEnum.OK,testRuleService.getTestRules());
 //        return result;
+    }
+
+    //通过PICT生成测试用例文件
+    @GetMapping("/generateTestCaseByPICT")
+    public String generateTestCaseByPICT(@RequestParam("systemVersion")String systemName, @RequestParam("tradeName")String tradeName ){
+        System.out.println("generateTestCase By PICT！");
+
+        return "Success!!!!!!";
     }
 }
