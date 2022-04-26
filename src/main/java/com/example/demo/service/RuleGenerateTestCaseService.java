@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.TestRuleManage;
 import com.example.demo.mapper.TestRuleMapper;
+import com.example.demo.util.TxtTransform;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +29,9 @@ public class RuleGenerateTestCaseService {
         List<TestRuleManage> testRuleManageList = testRuleMapper.getTestRuleByTradeName(tradeName);
         //TODO:通过testRuleManageList生成PICT的输入文件txt
         //TODO:通过PICT生成用例文件，并存放到对应的目录
-        return "";
+        TxtTransform transform = new TxtTransform();
+        //path为生成的txt路径
+        String path  = transform.wangyinTxtTransform(testRuleManageList);
+        return path;
     }
 }
