@@ -3,17 +3,22 @@ package com.example.demo.controller;
 import com.example.demo.dto.TestRuleManage;
 import com.example.demo.entity.*;
 import com.example.demo.service.*;
+import com.example.demo.util.TxtTransform;
+import com.alibaba.excel.EasyExcel;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -176,82 +181,8 @@ public class ProjectController {
 
     @RequestMapping("/CaseCreate")
     public void CaseCreate(@RequestBody List<TestRuleManage>data){
-        Multimap<String,String> ruleMap  = ArrayListMultimap.create();
-        //输入输出
-        ArrayList<ArrayList<String>> ruleList = new ArrayList<>();
-        ArrayList<String> ruleDescribeList = new ArrayList<>();
-        Multimap<String,Integer> resultMap  = ArrayListMultimap.create();
-        int sceneStartPos;
-        int sceneEndPos;
-        int describePos;
-        for(int i=0;i<data.size();i++){
-            TestRuleManage temp = data.get(i);
-            sceneStartPos = 0;
-            sceneEndPos=0;
-            describePos=0;
-            // 规则描述
-            String strDescribe = temp.getRuleDescribe();
-            describePos=strDescribe.indexOf("[");
-            String subStrDescribe = strDescribe.substring(0,describePos);
-
-            // 输入项或输出项
-            String ioIteam = temp.getIoIteam();
-            // 测试覆盖项(TCI)
-            String TestCovItem = temp.getTestCovItem();
-            ArrayList<String> tempList = new ArrayList<>();
-            while(true){
-                sceneEndPos = ioIteam.indexOf("|;|",sceneStartPos);
-                if(sceneEndPos == -1){
-                    String subStrIoIteam = ioIteam.substring(sceneStartPos);
-                    ruleMap.put(subStrDescribe,subStrIoIteam);
-                    tempList.add(subStrIoIteam);
-                    System.out.println(subStrIoIteam);
-                    break;
-                }
-                String subStrIoIteam = ioIteam.substring(sceneStartPos,sceneEndPos);
-                sceneStartPos = sceneEndPos + 3;
-                ruleMap.put(subStrDescribe,subStrIoIteam);
-                tempList.add(subStrIoIteam);
-
-                System.out.println(subStrIoIteam);
-            }
-            ruleDescribeList.add(subStrDescribe);
-            ruleList.add(tempList);
-            String result = temp.getTestCovItem();
-            resultMap.put(result,(Integer) i);
-        }
-        System.out.println("sdfsdf");
-
-        String content="";
-        Iterator iterator = resultMap.keySet().iterator();
-
-        while(iterator.hasNext()){
-            String result = (String)iterator.next();
-            List<Integer> index =(List<Integer>) resultMap.get(result);
-            String str = "";
-            for(int k=0 ;k<index.size();k++){
-                int tempIndex = index.get(k);
-                String describestr = ruleDescribeList.get(tempIndex);
-                ArrayList<String> inputList = ruleList.get(tempIndex);
-                str = str + "IF [" + describestr + "] IN {";
-                for (int p = 0;p<inputList.size();p++){
-                    if(k<index.size()-1) {
-                        str = str + "\"" + inputList.get(p) + "\",";
-                    }else {
-                        str = str + "\"" + inputList.get(p);
-                    }
-                }
-                if(k<index.size()-1) {
-                    str = str + "\"} AND " + '\n';
-                }else{
-                    str = str + "\"} " + '\n';
-                }
-            }
-            content = content + str + "THEN [$预期结果] = \"" + result +"\";" +'\n' +'\n';
-
-                    System.out.println(content);
-        }
-
+        TxtTransform transform = new TxtTransform();
+        transform.wangyinTxtTransform(data);
     }
 
 
@@ -262,4 +193,135 @@ public class ProjectController {
         testRuleService.saveTestRulesByExcel(data);
         System.out.println("save TestRules success！!");
     }
+
+    //Graphwalker生成用例接口
+    @RequestMapping("/graphwalkerTestCreate")
+    ResponseEntity<FileSystemResource> graphwalkerTestCreate(@RequestParam String systemName,@RequestParam String tradeName){
+        //模拟容器
+        //tradeName = "ITS发起的客户汇款往报交易";
+        Map<String, String> ruleTable = new HashMap<String,String>();
+        ruleTable.put("解析成功","1.报文解析成功，可在业务查询查看到一条记录；\n" +
+                "2.进入业务查询页面查看解析结果，按照平台编号、报文参考号、业务种类、收报时间、币种、来报发报行、来报金额、来源渠道、去向渠道、来报种类、去报种类展示正确；");
+        ruleTable.put("解析失败", "1.报文解析失败，可在业务查询查看到一条记录；\n" +
+                "2.进入业务查询页面查看，显示疑似重报，已自动注销；");
+        ruleTable.put("自动清分失败", "1.来报要素不完整，自动清分失败，生成人工清分待处理任务；\n" +
+                "2.进入业务查询页面查看，显示自动清分失败；");
+        ruleTable.put("自动清分成功", "1.来报要素完整，正确判定来源渠道，去向渠道；\n" +
+                "2.进入业务查询页面查看，显示自动清分成功；");
+        ruleTable.put("人工清分成功", "1.人工选择清分去向，提示录入成功，复核通过；\n" +
+                "2.进入业务查询页面查看，显示人工清分成功；");
+        ruleTable.put("人工清分注销", "1.人工选择清分注销，提示录入成功，复核通过；\n" +
+                "2.进入业务查询页面查看交易，显示已注销；");
+        ruleTable.put("组报成功", "1.进入业务查询页面查看，显示组报成功；");
+        ruleTable.put("发报成功", "1.进入报文查询页面查看，能查到报文平台的去报响应；\n" +
+                "2.进入业务查询页面查看，显示发报成功；");
+        ruleTable.put("发报失败", "1.进入报文查询页面查看，查不到报文平台的去报响应；\n" +
+                "2.进入业务查询页面查看，显示状态还停在组报成功；");
+        ruleTable.put("自动重发失败", "1.进入报文查询页面查看，查不到报文平台的去报响应；\n" +
+                "2.日志查询，该交易已重发五次，均未收到响应；");
+        ruleTable.put("自动重发成功", "1.进入报文查询页面查看，能查到报文平台的去报响应；\n" +
+                "2.进入业务查询页面查看，显示发报成功；");
+        ruleTable.put("交易成功", "1.进入报文查询页面查看，查到与原汇款报文相关联的交易成功回执报文；\n" +
+                "2.进入业务查询页面查看，更新原汇款交易的业务状态、终止标识、去向方处理状态；\n" +
+                "3.将交易成功状态通知给ITS；");
+        ruleTable.put("交易失败", "1.进入报文查询页面查看，查到与原汇款报文相关联的交易拒绝回执报文；\n" +
+                "2.进入业务查询页面查看，更新原汇款交易的业务状态、终止标识、去向方处理状态；\n" +
+                "3.将交易拒绝状态通知给ITS；");
+
+        String hmlPath = "D:\\xunleixiazai\\2022-03\\paic_03.graphml";
+
+        String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 D:\\xunleixiazai\\2022-03\\graphwalker-cli-4.3.1.jar offline -m "+ hmlPath+"quick_random(edge_coverage(100))\""};
+        List<String> outputStr = new ArrayList<>(); //运行结果
+        try {
+            Process proc = Runtime.getRuntime().exec(cmd);
+            InputStream fis = proc.getInputStream();
+            InputStreamReader isr=new InputStreamReader(fis);
+            BufferedReader br=new BufferedReader(isr);
+            String line=null;
+            //直到读完为止
+            while((line=br.readLine())!=null) {
+                outputStr.add(line.substring(1,line.length()-1));
+            }
+            //按路径分组
+            List<List<String>> use_pathes = new ArrayList<>();
+            List<String> use_path = new ArrayList<>();
+            for (int i = 0; i<outputStr.size(); i++) {
+                String elemStr = outputStr.get(i);
+                String[] elem = elemStr.split(":");
+                if(elem[1].length() > 2) {//非空行保存
+                    use_path.add(outputStr.get(i));
+                } else {
+                    if(use_path.size()!=0) {
+                        use_pathes.add(use_path);
+                    }
+                    use_path = new ArrayList<>();
+                }
+            }
+            //分小组
+            List<List<String>> use_cases = new ArrayList<>();
+            for (List<String> use_path_tmp:use_pathes) {
+                for (int i = 0; i<use_path_tmp.size() - 1; i = i + 2) {
+                    List<String> use_case = new ArrayList<>();
+                    use_case.add(use_path_tmp.get(i));
+                    use_case.add(use_path_tmp.get(i+1));
+                    use_case.add(use_path_tmp.get(i+2));
+                    use_cases.add(use_case);
+                }
+            }
+
+            List<UseCaseInfo> useCaseInfos = new ArrayList<UseCaseInfo>();
+            //生成条目, usecase:v-e-v
+            for (List<String> use_case: use_cases) {
+                UseCaseInfo caseInfo = new UseCaseInfo();
+                if(!caseInfo.parseCase(use_case, tradeName, ruleTable)) {
+                    return (ResponseEntity<FileSystemResource>) ResponseEntity.internalServerError();
+                    //return "Parse use case failed.";
+                }
+                useCaseInfos.add(caseInfo);
+            }
+            //输出excel
+            String tmpFileName = "D:\\TestJavaExcel\\test2.xlsx";
+            //表头
+            List<List<String>> tableHeader = new ArrayList<>();
+            List<String> head0 = new ArrayList<>();
+            head0.add("用例描述");
+            List<String> head1 = new ArrayList<>();
+            head1.add("用例步骤");
+            List<String> head2 = new ArrayList<>();
+            head2.add("预期结果");
+            tableHeader.add(head0);
+            tableHeader.add(head1);
+            tableHeader.add(head2);
+            List<List<Object>> dataList = new ArrayList<>();
+            Map<String,Boolean> checkRepeat = new HashMap<>();
+            for (UseCaseInfo caseInfo:useCaseInfos) {
+                //重复的不写
+                if (checkRepeat.get(caseInfo.getSteps()) != null) {
+                    continue;
+                } else {
+                    checkRepeat.put(caseInfo.getSteps(), true);
+                }
+                //遍历写内容
+                List<Object> data = new ArrayList<>();
+                data.add(caseInfo.getDescription());
+                data.add(caseInfo.getSteps());
+                data.add(caseInfo.getResult());
+                dataList.add(data);
+            }
+            EasyExcel.write(tmpFileName).head(tableHeader).sheet("Use Cases").doWrite(dataList);
+            //返回文件
+            String contentDisposition = ContentDisposition
+                    .builder("attachment")
+                    .filename("UseCases.xlsx")
+                    .build().toString();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                    .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .body(new FileSystemResource(tmpFileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (ResponseEntity<FileSystemResource>) ResponseEntity.noContent();
+    }
+
 }

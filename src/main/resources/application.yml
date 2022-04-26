@@ -31,5 +31,8 @@ upload:
     PICT-path: E:/RuleAssets/PICT/
     graphwalker-path: E:/RuleAssets/Graphwalker/
 
+txtpath:
+  txtsavepath: E:/RuleAssets/PICT/RuleTxt/
+
 address:
     webip: http://127.0.0.1:8080/
