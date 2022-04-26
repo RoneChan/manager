@@ -1,9 +1,6 @@
 package com.example.demo.mapper;
 
 import com.example.demo.dto.TestRuleManage;
-import com.example.demo.entity.ProjectProfile;
-import com.example.demo.entity.ProjectProgress;
-import com.example.demo.entity.TesterWorkload;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
