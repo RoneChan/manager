@@ -25,7 +25,7 @@ public class TestRuleService {
     }
 
     //添加测试规则
-    public String addTsetRule(TestRuleManage testRule) {
+    public String addTestRule(TestRuleManage testRule) {
         String message = "";
         //判断该条规则是否已经存在
         if (testRuleMapper.findTestNumber(testRule.getTestNumber()) == null) {
@@ -36,6 +36,7 @@ public class TestRuleService {
         }
         return message;
     }
+
 
     //查询所有测试规则
     public List<TestRuleManage> getTestRules() {
@@ -53,7 +54,7 @@ public class TestRuleService {
             TestRuleManage testRule;
             for (temp = 0; temp < listNum; temp++) {
                 testRule = testRuleManageList.get(temp);
-                addTsetRule(testRule);
+                addTestRule(testRule);
             }
             message = "成功写入导入的测试规则文件中所有的规则！";
         } else {

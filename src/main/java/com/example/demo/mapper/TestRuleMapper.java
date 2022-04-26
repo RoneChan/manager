@@ -16,6 +16,9 @@ public interface TestRuleMapper {
     //根据交易名查询所有有效的测试规则
     List<TestRuleManage> getTestRuleByTradeName(@Param("TradeName")String tradeName);
 
+    //根据系统名和交易名查询所有有效的测试规则
+    List<TestRuleManage> getTestRuleBySysAndTradeName(@Param("SystemName")String systemName, @Param("TradeName")String tradeName);
+
     //添加测试规则
     String addTsetRule(@Param("ssm")TestRuleManage ssm);
 

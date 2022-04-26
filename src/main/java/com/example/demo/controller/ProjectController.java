@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,9 @@ import java.util.*;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+
+    @Resource
+    private TestRuleService testRuleService;
 
 
 
@@ -253,7 +257,9 @@ public class ProjectController {
 
     //前端传送数据到后台
     @RequestMapping("/uploadTestRules")
-    public void uploadTestRules(@RequestParam String name, @RequestBody List<TestRuleManage>data) {
+    public void uploadTestRules(@RequestParam String name, @RequestBody List<TestRuleManage> data) {
         System.out.println("uploadTestRules By PICT！");
+        testRuleService.saveTestRulesByExcel(data);
+        System.out.println("save TestRules success！!");
     }
 }
