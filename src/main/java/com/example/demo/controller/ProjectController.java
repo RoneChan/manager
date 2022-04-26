@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.TestRuleManage;
 import com.example.demo.entity.*;
 import com.example.demo.service.*;
 import com.google.common.collect.ArrayListMultimap;
@@ -16,10 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class ProjectController {
@@ -71,8 +69,8 @@ public class ProjectController {
     }
 
     @RequestMapping("/test")
-    String test(){
-        return "Sdfsfsf";
+    void test(){
+
     }
 
     @Value("${upload.PICT-path}")
@@ -176,30 +174,82 @@ public class ProjectController {
     }
 
     @RequestMapping("/CaseCreate")
-    public void CaseCreate(@RequestBody List<Rule>data){
-        HashMap<String, ArrayList<String>> map;
+    public void CaseCreate(@RequestBody List<TestRuleManage>data){
         Multimap<String,String> ruleMap  = ArrayListMultimap.create();
-        int sceneStartPos = 0;
-        int sceneEndPos=0;
-        int describePos=0;
+        //输入输出
+        ArrayList<ArrayList<String>> ruleList = new ArrayList<>();
+        ArrayList<String> ruleDescribeList = new ArrayList<>();
+        Multimap<String,Integer> resultMap  = ArrayListMultimap.create();
+        int sceneStartPos;
+        int sceneEndPos;
+        int describePos;
         for(int i=0;i<data.size();i++){
-            Rule temp = data.get(0);
-            String strDescribe = temp.getDescribe();
+            TestRuleManage temp = data.get(i);
+            sceneStartPos = 0;
+            sceneEndPos=0;
+            describePos=0;
+            // 规则描述
+            String strDescribe = temp.getRuleDescribe();
             describePos=strDescribe.indexOf("[");
-            System.out.println(strDescribe.substring(0,describePos));
-            String scene = temp.getScene();
+            String subStrDescribe = strDescribe.substring(0,describePos);
+
+            // 输入项或输出项
+            String ioIteam = temp.getIoIteam();
+            // 测试覆盖项(TCI)
+            String TestCovItem = temp.getTestCovItem();
+            ArrayList<String> tempList = new ArrayList<>();
             while(true){
-                sceneEndPos = scene.indexOf("|;|",sceneStartPos);
+                sceneEndPos = ioIteam.indexOf("|;|",sceneStartPos);
                 if(sceneEndPos == -1){
+                    String subStrIoIteam = ioIteam.substring(sceneStartPos);
+                    ruleMap.put(subStrDescribe,subStrIoIteam);
+                    tempList.add(subStrIoIteam);
+                    System.out.println(subStrIoIteam);
                     break;
                 }
-                String str = scene.substring(sceneStartPos,sceneEndPos);
+                String subStrIoIteam = ioIteam.substring(sceneStartPos,sceneEndPos);
                 sceneStartPos = sceneEndPos + 3;
-                System.out.println(str);
+                ruleMap.put(subStrDescribe,subStrIoIteam);
+                tempList.add(subStrIoIteam);
+
+                System.out.println(subStrIoIteam);
             }
-
-
+            ruleDescribeList.add(subStrDescribe);
+            ruleList.add(tempList);
+            String result = temp.getTestCovItem();
+            resultMap.put(result,(Integer) i);
         }
         System.out.println("sdfsdf");
+
+        String content="";
+        Iterator iterator = resultMap.keySet().iterator();
+
+        while(iterator.hasNext()){
+            String result = (String)iterator.next();
+            List<Integer> index =(List<Integer>) resultMap.get(result);
+            String str = "";
+            for(int k=0 ;k<index.size();k++){
+                int tempIndex = index.get(k);
+                String describestr = ruleDescribeList.get(tempIndex);
+                ArrayList<String> inputList = ruleList.get(tempIndex);
+                str = str + "IF [" + describestr + "] IN {";
+                for (int p = 0;p<inputList.size();p++){
+                    if(k<index.size()-1) {
+                        str = str + "\"" + inputList.get(p) + "\",";
+                    }else {
+                        str = str + "\"" + inputList.get(p);
+                    }
+                }
+                if(k<index.size()-1) {
+                    str = str + "\"} AND " + '\n';
+                }else{
+                    str = str + "\"} " + '\n';
+                }
+            }
+            content = content + str + "THEN [$预期结果] = \"" + result +"\";" +'\n' +'\n';
+
+                    System.out.println(content);
+        }
+
     }
 }
