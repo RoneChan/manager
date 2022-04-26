@@ -7,10 +7,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -69,8 +66,8 @@ public class ProjectController {
     }
 
     @RequestMapping("/test")
-    void test(){
-
+    String test(){
+        return "sdfsdfs";
     }
 
     @Value("${upload.PICT-path}")
@@ -251,5 +248,12 @@ public class ProjectController {
                     System.out.println(content);
         }
 
+    }
+
+
+    //前端传送数据到后台
+    @RequestMapping("/uploadTestRules")
+    public void uploadTestRules(@RequestParam String name, @RequestBody List<TestRuleManage>data) {
+        System.out.println("uploadTestRules By PICT！");
     }
 }
