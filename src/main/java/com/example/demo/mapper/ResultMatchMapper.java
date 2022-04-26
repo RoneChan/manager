@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.ResultMatchDictionary;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @dateTime;2022-04-24
  * @description: 预期结果映射字典mapper
  * */
-
+@Mapper
 public interface ResultMatchMapper {
 
     //根据系统名查询维护的所有结果映射详情信息
