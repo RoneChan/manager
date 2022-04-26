@@ -5,6 +5,7 @@ import com.example.demo.dto.ResultMatchDictionary;
 import com.example.demo.dto.TestRuleManage;
 import com.example.demo.mapper.ResultMatchMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @dateTime: 2022-04-24
  * @description: 预期结果映射字典维护service
  * */
-
+@Service
 public class ResultMatchDictionaryService {
 
     @Resource ResultMatchMapper resultMatchMapper;
