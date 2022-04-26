@@ -20,7 +20,7 @@ public interface TestRuleMapper {
     List<TestRuleManage> getTestRuleByTradeName(@Param("TradeName")String tradeName);
 
     //添加测试规则
-    void addTsetRule(@Param("ssm")TestRuleManage ssm);
+    String addTsetRule(@Param("ssm")TestRuleManage ssm);
 
     //查询所有测试规则
     List<TestRuleManage> getTestRules();

@@ -43,5 +43,25 @@ public class TestRuleService {
         return testRuleManageList;
     }
 
+    //写入导入的测试规则文件中所有的规则
+    public String saveTestRulesByExcel(List<TestRuleManage> testRuleManageList){
+        String message = "";
+        //判断testRuleManageList是否为空
+        if (!testRuleManageList.isEmpty()) {
+            int temp;
+            int listNum = testRuleManageList.size();
+            TestRuleManage testRule;
+            for (temp = 0; temp < listNum; temp++) {
+                testRule = testRuleManageList.get(temp);
+                addTsetRule(testRule);
+            }
+            message = "成功写入导入的测试规则文件中所有的规则！";
+        } else {
+            message = "导入的测试规则为空！！";
+        }
+
+        return message;
+    }
+
 
 }

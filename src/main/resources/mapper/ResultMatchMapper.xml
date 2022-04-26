@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.TestRuleMapper">
+
+    <!--根据交易名查询所有有效的测试规则-->
+    <select id="getResultDetailBySysName" resultType="com.example.demo.dto.ResultMatchDictionary">
+        SELECT * FROM resultmatchdic WHERE systemName=#{systemName};
+    </select>
+
+    <!--查询所有测试规则-->
+    <select id="getResultDetails" resultType="com.example.demo.dto.ResultMatchDictionary">
+        SELECT * FROM resultmatchdic;
+    </select>
+
+    <!--新增结果映射详情字典信息-->
+    <insert id="addResultDetailDictionary" parameterType="com.StudentScore.dto.ResultMatchDictionary" useGeneratedKeys="true" keyProperty="id">
+        insert into resultmatchdic (systemName,matchingResultKey,resultDetailDes,userName,submitTime,modifyTime,Fstandby1,Fstandby2,Fstandby3)
+        values (#{resultMatchDictionary.systemName},#{resultMatchDictionary.matchingResultKey},#{resultMatchDictionary.resultDetailDes},#{resultMatchDictionary.userName},#{resultMatchDictionary.submitTime},#{resultMatchDictionary.modifyTime},#{resultMatchDictionary.Fstandby1},#{resultMatchDictionary.Fstandby2},#{resultMatchDictionary.Fstandby3})
+    </insert>
+</mapper>
