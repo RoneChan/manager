@@ -24,6 +24,12 @@ public class TestRuleService {
         return testRuleManageList;
     }
 
+    //根据系统名查询所有有效的测试规则
+    public List<TestRuleManage> getTestRuleBySystemName(String systemName){
+        List<TestRuleManage> testRuleManageList = testRuleMapper.getTestRuleByTradeName(systemName);
+        return testRuleManageList;
+    }
+
     //添加测试规则
     public String addTestRule(TestRuleManage testRule) {
         String message = "";
@@ -39,9 +45,25 @@ public class TestRuleService {
 
 
     //查询所有测试规则
-    public List<TestRuleManage> getTestRules() {
-        List<TestRuleManage> testRuleManageList = testRuleMapper.getTestRules();
+    public List<TestRuleManage> getTestRulesAll() {
+        List<TestRuleManage> testRuleManageList = testRuleMapper.getTestRulesAll();
         return testRuleManageList;
+    }
+
+    //根据系统名和交易码查询测试规则
+    public List<TestRuleManage> getTestRules(String systemVersion, String tradeName) {
+        List<TestRuleManage> testRuleManageList;
+        if (systemVersion ==null && tradeName == null) {
+            testRuleManageList = testRuleMapper.getTestRulesAll();
+        } else if (systemVersion == null) {
+            testRuleManageList = testRuleMapper.getTestRuleByTradeName(tradeName);
+        } else if (tradeName == null) {
+            testRuleManageList = testRuleMapper.getTestRuleBySystemName(systemVersion);
+        } else {
+            testRuleManageList = testRuleMapper.getTestRuleBySysAndTradeName(systemVersion, tradeName);
+        }
+        return testRuleManageList;
+
     }
 
     //写入导入的测试规则文件中所有的规则

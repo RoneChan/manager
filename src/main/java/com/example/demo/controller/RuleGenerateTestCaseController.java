@@ -27,9 +27,9 @@ public class RuleGenerateTestCaseController {
 
     //显示所有规则信息
     @GetMapping("/getTestRules")
-    public ResultVo getTestRules() {
+    public ResultVo getTestRules(@RequestParam("systemVersion")String systemName, @RequestParam("tradeName")String tradeName) {
         System.out.println("Hello World");
-        return new ResultVo(ResutEnum.OK,testRuleService.getTestRules());
+        return new ResultVo(ResutEnum.OK,testRuleService.getTestRules(systemName, tradeName));
 //        ResultVo result;
 //        result = new ResultVo(ResutEnum.OK,testRuleService.getTestRules());
 //        return result;
