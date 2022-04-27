@@ -53,6 +53,7 @@ public class TestRuleService {
     //根据系统名和交易码查询测试规则
     public List<TestRuleManage> getTestRules(String systemVersion, String tradeName) {
         List<TestRuleManage> testRuleManageList;
+        String message = "";
         if (systemVersion ==null && tradeName == null) {
             testRuleManageList = testRuleMapper.getTestRulesAll();
         } else if (systemVersion == null) {
@@ -61,6 +62,7 @@ public class TestRuleService {
             testRuleManageList = testRuleMapper.getTestRuleBySystemName(systemVersion);
         } else {
             testRuleManageList = testRuleMapper.getTestRuleBySysAndTradeName(systemVersion, tradeName);
+            message = "查询成功";
         }
         return testRuleManageList;
 
