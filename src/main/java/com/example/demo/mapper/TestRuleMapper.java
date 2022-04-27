@@ -17,10 +17,10 @@ public interface TestRuleMapper {
     List<TestRuleManage> getTestRuleByTradeName(@Param("TradeName")String tradeName);
 
     //根据系统名查询所有有效的测试规则
-    List<TestRuleManage> getTestRuleBySystemName(@Param("SystemName")String systemName);
+    List<TestRuleManage> getTestRuleBySystemName(@Param("systemVersion")String systemVersion);
 
     //根据系统名和交易名查询所有有效的测试规则
-    List<TestRuleManage> getTestRuleBySysAndTradeName(@Param("SystemName")String systemName, @Param("TradeName")String tradeName);
+    List<TestRuleManage> getTestRuleBySysAndTradeName(@Param("systemVersion")String systemVersion, @Param("TradeName")String tradeName);
 
     //添加测试规则
     String addTsetRule(@Param("ssm")TestRuleManage ssm);
