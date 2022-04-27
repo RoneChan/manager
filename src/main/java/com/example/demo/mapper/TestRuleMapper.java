@@ -10,7 +10,7 @@ import java.util.List;
  * @dateTime;2022-04-21
  * @description: 测试规则mapper
  * */
-
+@Mapper
 public interface TestRuleMapper {
 
     //根据交易名查询所有有效的测试规则
@@ -20,8 +20,8 @@ public interface TestRuleMapper {
     List<TestRuleManage> getTestRuleBySystemName(@Param("systemVersion")String systemVersion);
 
     //根据系统名和交易名查询所有有效的测试规则
-    List<TestRuleManage> getTestRuleBySysAndTradeName(@Param("systemVersion")String systemVersion, @Param("TradeName")String tradeName);
-
+    //List<TestRuleManage> getTestRuleBySysAndTradeName(@Param("systemVersion")String systemVersion, @Param("TradeName")String tradeName);
+    List<TestRuleManage> getTestRuleBySysAndTradeName(String systemVersion, String tradeName);
     //添加测试规则
     String addTsetRule(@Param("ssm")TestRuleManage ssm);
 
