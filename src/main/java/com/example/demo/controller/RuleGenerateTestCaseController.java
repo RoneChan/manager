@@ -30,6 +30,8 @@ public class RuleGenerateTestCaseController {
     @GetMapping("/getTestRules")
     public ResultVo getTestRules(@RequestParam("systemVersion")String systemVersion, @RequestParam("tradeName")String tradeName) {
         System.out.println("Hello World");
+        System.out.println("Controller rev systemVersion:"+systemVersion);
+        System.out.println("Controller rev tradeName:"+tradeName);
         return new ResultVo(ResutEnum.OK,testRuleService.getTestRules(systemVersion, tradeName));
 //        ResultVo result;
 //        result = new ResultVo(ResutEnum.OK,testRuleService.getTestRules());

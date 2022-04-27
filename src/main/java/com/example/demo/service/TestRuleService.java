@@ -54,16 +54,17 @@ public class TestRuleService {
     public List<TestRuleManage> getTestRules(String systemVersion, String tradeName) {
         List<TestRuleManage> testRuleManageList;
         String message = "";
-        if (systemVersion ==null && tradeName == null) {
+        if (systemVersion.isEmpty() && tradeName.isEmpty()) {
             testRuleManageList = testRuleMapper.getTestRulesAll();
-        } else if (systemVersion == null) {
+        } else if (systemVersion.isEmpty()) {
             testRuleManageList = testRuleMapper.getTestRuleByTradeName(tradeName);
-        } else if (tradeName == null) {
+        } else if (tradeName.isEmpty()) {
             testRuleManageList = testRuleMapper.getTestRuleBySystemName(systemVersion);
         } else {
             testRuleManageList = testRuleMapper.getTestRuleBySysAndTradeName(systemVersion, tradeName);
             message = "查询成功";
         }
+        message = "查询成功";
         return testRuleManageList;
 
     }
