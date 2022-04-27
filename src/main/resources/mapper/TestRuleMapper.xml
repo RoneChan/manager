@@ -14,7 +14,7 @@
 
     <!--根据系统名和交易名查询所有有效的测试规则-->
     <select id="getTestRuleBySysAndTradeName" resultType="com.example.demo.dto.TestRuleManage">
-        SELECT * FROM testrulemanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeNsme};
+        SELECT * FROM testrulemanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeName};
     </select>
 
     <!--新增测试规则-->
