@@ -4,17 +4,17 @@
 
     <!--根据交易名查询所有有效的测试规则-->
     <select id="getTestRuleByTradeName" resultType="com.example.demo.dto.TestRuleManage">
-        SELECT * FROM testrulemanage WHERE tradeName=#{tradeName};
+        SELECT * FROM testrulemanage WHERE tradeName=#{tradeName}
     </select>
 
     <!--查询所有测试规则-->
     <select id="getTestRules" resultType="com.example.demo.dto.TestRuleManage">
-        SELECT * FROM testrulemanage;
+        SELECT * FROM testrulemanage
     </select>
 
     <!--根据系统名和交易名查询所有有效的测试规则-->
     <select id="getTestRuleBySysAndTradeName" resultType="com.example.demo.dto.TestRuleManage">
-        SELECT * FROM testrulemanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeName};
+        SELECT * FROM testrulemanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeName}
     </select>
 
     <!--新增测试规则-->
