@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,9 @@ import java.util.*;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+
+    @Resource
+    private TestRuleService testRuleService;
 
 
 
@@ -132,7 +136,6 @@ public class ProjectController {
     public void GraphwalkerUpload(@RequestParam("file") MultipartFile file,@RequestParam("tradename") String tradename, HttpServletResponse response) {
         System.out.println(tradename);
         System.out.println("执行文件保存！");
-        System.out.println("执行文件保存！");
         //设置服务器上图片保存地址
         //String path = "E:/RuleAssets/Graphwalker";
         File filePath = new File(GraphwalkerUploadPath);
@@ -167,7 +170,7 @@ public class ProjectController {
 
             //将文件在服务器的存储路径返回
             response.setContentType("text/html;charset=utf-8");
-            response.getWriter().print(IP + "RuleAssets/" + fileName);
+            response.getWriter().print("E:/RuleAssets/Graphwalker/" + fileName);
 
         } catch (IOException e) {
             System.out.println("上传失败");
@@ -186,13 +189,17 @@ public class ProjectController {
 
     //前端传送数据到后台
     @RequestMapping("/uploadTestRules")
-    public void uploadTestRules(@RequestParam String name, @RequestBody List<TestRuleManage>data) {
+    public void uploadTestRules(@RequestParam String name, @RequestBody List<TestRuleManage> data) {
         System.out.println("uploadTestRules By PICT！");
+        testRuleService.saveTestRulesByExcel(data);
+        System.out.println("save TestRules success！!");
     }
+
+
 
     //Graphwalker生成用例接口
     @RequestMapping("/graphwalkerTestCreate")
-    ResponseEntity<FileSystemResource> graphwalkerTestCreate(@RequestParam String systemName,@RequestParam String tradeName){
+    ResponseEntity<FileSystemResource> graphwalkerTestCreate(@RequestParam("systemName") String systemName,@RequestParam("tradeName") String tradeName,@RequestParam("uplodahmlPath") String uplodahmlPath){
         //模拟容器
         //tradeName = "ITS发起的客户汇款往报交易";
         Map<String, String> ruleTable = new HashMap<String,String>();
@@ -275,6 +282,7 @@ public class ProjectController {
                 }
                 useCaseInfos.add(caseInfo);
             }
+            //String tmpFileName = "E:\\RuleAssets\\Graphwalker\\Output\\+filename
             //输出excel
             String tmpFileName = "D:\\TestJavaExcel\\test2.xlsx";
             //表头

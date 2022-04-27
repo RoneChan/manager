@@ -5,10 +5,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,9 +19,9 @@ public class TxtTransform {
         ArrayList<ArrayList<String>> ruleList = new ArrayList<>();
         ArrayList<String> ruleDescribeList = new ArrayList<>();
         Multimap<String, Integer> resultMap = ArrayListMultimap.create();
-        int sceneStartPos;
-        int sceneEndPos;
-        int describePos;
+        int sceneStartPos=0;
+        int sceneEndPos=0;
+        int describePos=0;
         for (int i = 0; i < data.size(); i++) {
             TestRuleManage temp = data.get(i);
             sceneStartPos = 0;
@@ -45,14 +42,22 @@ public class TxtTransform {
                 if (sceneEndPos == -1) {
                     String subStrIoIteam = ioIteam.substring(sceneStartPos);
                     ruleMap.put(subStrDescribe, subStrIoIteam);
-                    tempList.add(subStrIoIteam);
+                    if(subStrIoIteam.charAt(0) == '~'){
+                        tempList.add(subStrIoIteam.substring(1));
+                    }else{
+                        tempList.add(subStrIoIteam);
+                    }
                     System.out.println(subStrIoIteam);
                     break;
                 }
                 String subStrIoIteam = ioIteam.substring(sceneStartPos, sceneEndPos);
                 sceneStartPos = sceneEndPos + 3;
                 ruleMap.put(subStrDescribe, subStrIoIteam);
-                tempList.add(subStrIoIteam);
+                if(subStrIoIteam.charAt(0) == '~'){
+                    tempList.add(subStrIoIteam.substring(1));
+                }else{
+                    tempList.add(subStrIoIteam);
+                }
 
                 System.out.println(subStrIoIteam);
             }
@@ -91,6 +96,12 @@ public class TxtTransform {
             List<Integer> index = (List<Integer>) resultMap.get(result);
             String str = "IF ";
             reultStr = reultStr + result + ",";
+            String connectStr="";
+            if(result.equals("交易成功")){
+                connectStr = "AND";
+            }else{
+                connectStr = "OR";
+            }
             for (int k = 0; k < index.size(); k++) {
                 int tempIndex = index.get(k);
                 String describestr = ruleDescribeList.get(tempIndex);
@@ -104,7 +115,7 @@ public class TxtTransform {
                     }
                 }
                 if (k < index.size() - 1) {
-                    str = str + "\"} AND" + '\n';
+                    str = str + "\"} "+connectStr + '\n';
                 } else {
                     str = str + "\"} " + '\n';
                 }
@@ -112,7 +123,6 @@ public class TxtTransform {
             resultContent = resultContent + str + "THEN [$预期结果] = \"" + result + "\";" + '\n' + '\n';
         }
         reultStr = reultStr.substring(0, reultStr.length() - 1) + "\n\n";
-        System.out.println(ruleContent + reultStr + resultContent);
         String txtPath = writeTxt(ruleContent + reultStr + resultContent);
         return txtPath;
     }
@@ -125,7 +135,6 @@ public class TxtTransform {
         String fileName = date + ".txt";
         String filePath = path + fileName;
         File writefile;
-        BufferedWriter bw;
         boolean append = true;  //  是否追加
         writefile = new File(filePath);
         if (writefile.exists() == false)   // 判断文件是否存在，不存在则生成
@@ -142,21 +151,32 @@ public class TxtTransform {
             try {
                 writefile.createNewFile();
                 writefile = new File(filePath);
+
             } catch (IOException e) {
                 // TODO 自动生成的 catch 块
                 e.printStackTrace();
             }
         }
         try {
-            FileWriter fw = new FileWriter(writefile, append);
-            bw = new BufferedWriter(fw);
-            fw.write(content);
-            fw.flush();
-            fw.close();
-
+            //FileWriter fw = new FileWriter(writefile, append);
+            OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(writefile),"GBK");
+            BufferedWriter bw = new BufferedWriter(write);
+            bw.write(content);
+            bw.flush();
+            bw.close();
+            OutputExcel(fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return filePath;
+    }
+
+    private String OutputExcel(String fileName){
+        int pos = fileName.indexOf(".txt");
+        CMDUtil cmdUtil = new CMDUtil();
+        String excelName = fileName.substring(0,pos) + ".xls";
+        String cmdStr = "cmd /c cd /d E:\\RuleAssets\\PICT\\RuleTxt && pict " + fileName+  " > " + excelName;
+        cmdUtil.excuteCMDCommand(cmdStr);
+        return excelName;
     }
 }

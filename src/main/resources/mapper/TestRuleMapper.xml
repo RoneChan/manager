@@ -12,6 +12,17 @@
         SELECT * FROM testrulemanage;
     </select>
 
+    <!--根据系统名和交易名查询所有有效的测试规则-->
+    <select id="getTestRuleBySysAndTradeName" resultType="com.example.demo.dto.TestRuleManage">
+        SELECT * FROM testrulemanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeNsme};
+    </select>
+
+    <!--新增测试规则-->
+    <insert id="addTestRule" parameterType="com.example.demo.dto.TestRuleManage" useGeneratedKeys="true" keyProperty="id">
+        insert into resultmatchdic (systemVersion,tradeName,tradeCode,testCharacter,ruleDescribe,ruleType,ioIteam,outputEffective,equivalenceClass,testNumber,testCovItem,ruleRepresentation,caseNumber,designName,submitTime)
+        values (#{TestRuleManage.systemVersion},#{TestRuleManage.tradeName},#{TestRuleManage.tradeCode},#{TestRuleManage.testCharacter},#{TestRuleManage.ruleDescribe},#{TestRuleManage.ruleType},#{TestRuleManage.ioIteam},#{TestRuleManage.outputEffective},#{TestRuleManage.equivalenceClass},#{TestRuleManage.testNumber},#{TestRuleManage.testCovItem},#{TestRuleManage.ruleRepresentation},#{TestRuleManage.caseNumber},#{TestRuleManage.designName},#{TestRuleManage.submitTime})
+    </insert>
+
     <!--添加测试规则-->
 
 </mapper>

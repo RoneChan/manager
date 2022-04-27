@@ -30,7 +30,7 @@ public class RuleGenerateTestCaseController {
     @GetMapping("/getTestRules")
     public ResultVo getTestRules() {
         System.out.println("Hello World");
-        return new ResultVo(ResutEnum.OK, testRuleService.getTestRules());
+        return new ResultVo(ResutEnum.OK, testRuleService.getTestRules("dsfsdf","dfd"));
 //        ResultVo result;
 //        result = new ResultVo(ResutEnum.OK,testRuleService.getTestRules());
 //        return result;
