@@ -129,7 +129,9 @@ public class ProjectController {
     @Value("${upload.graphwalker-path}")
     private String GraphwalkerUploadPath;
     @RequestMapping("/uploadGraphwalkerDoc")
-    public void GraphwalkerUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) {
+    public void GraphwalkerUpload(@RequestParam("file") MultipartFile file,@RequestParam("tradename") String tradename, HttpServletResponse response) {
+        System.out.println(tradename);
+        System.out.println("执行文件保存！");
         System.out.println("执行文件保存！");
         //设置服务器上图片保存地址
         //String path = "E:/RuleAssets/Graphwalker";

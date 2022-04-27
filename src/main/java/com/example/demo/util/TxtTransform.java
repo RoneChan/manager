@@ -89,13 +89,13 @@ public class TxtTransform {
         while (iterator.hasNext()) {
             String result = (String) iterator.next();
             List<Integer> index = (List<Integer>) resultMap.get(result);
-            String str = "";
+            String str = "IF ";
             reultStr = reultStr + result + ",";
             for (int k = 0; k < index.size(); k++) {
                 int tempIndex = index.get(k);
                 String describestr = ruleDescribeList.get(tempIndex);
                 ArrayList<String> inputList = ruleList.get(tempIndex);
-                str = str + "IF [" + describestr + "] IN {";
+                str = str + "[" + describestr + "] IN {";
                 for (int p = 0; p < inputList.size(); p++) {
                     if (p < inputList.size() - 1) {
                         str = str + "\"" + inputList.get(p) + "\",";
@@ -104,7 +104,7 @@ public class TxtTransform {
                     }
                 }
                 if (k < index.size() - 1) {
-                    str = str + "\"} AND " + '\n';
+                    str = str + "\"} AND" + '\n';
                 } else {
                     str = str + "\"} " + '\n';
                 }
