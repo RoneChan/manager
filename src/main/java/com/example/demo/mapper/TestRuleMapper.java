@@ -14,7 +14,7 @@ import java.util.List;
 public interface TestRuleMapper {
 
     //根据交易名查询所有有效的测试规则
-    List<TestRuleManage> getTestRuleByTradeName(@Param("TradeName")String tradeName);
+    List<TestRuleManage> getTestRuleByTradeName(@Param("tradeName")String tradeName);
 
     //根据系统名查询所有有效的测试规则
     List<TestRuleManage> getTestRuleBySystemName(@Param("systemVersion")String systemVersion);
