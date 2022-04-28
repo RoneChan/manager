@@ -232,7 +232,7 @@ public class ProjectController {
                 "3.将交易拒绝状态通知给ITS；");
 
         //String hmlPath = "D:\\xunleixiazai\\2022-03\\paic_03.graphml";
-        String GwPath = "E:\\RuleAssets\\Graphwalker\\Output\\graphwalker-cli-4.3.1.jar";
+        String GwPath = "D:\\RuleAssets\\Graphwalker\\output\\graphwalker-cli-4.3.1.jar";
 
         // String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 D:\\xunleixiazai\\2022-03\\graphwalker-cli-4.3.1.jar offline -m D:\\xunleixiazai\\2022-03\\paic_03.graphml \"quick_random(edge_coverage(100))\""};
         String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 "+GwPath +" offline -m "+ hmlPath+" \"quick_random(edge_coverage(100))\""};

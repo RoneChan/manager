@@ -23,7 +23,7 @@ public interface TestRuleMapper {
     List<TestRuleManage> getTestRuleBySysAndTradeName(@Param("systemVersion")String systemVersion,@Param("tradeName")String tradeName);
     //List<TestRuleManage> getTestRuleBySysAndTradeName(String systemVersion, String tradeName);
     //添加测试规则
-    String addTsetRule(@Param("ssm")TestRuleManage ssm);
+    void addTestRule(@Param("testRule")TestRuleManage testRule);
 
     //查询所有测试规则
     List<TestRuleManage> getTestRulesAll();

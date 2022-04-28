@@ -33,13 +33,15 @@ public class TestRuleService {
     //添加测试规则
     public String addTestRule(TestRuleManage testRule) {
         String message = "";
+        testRuleMapper.addTestRule(testRule);
+        message = "添加测试规则成功！";
         //判断该条规则是否已经存在
-        if (testRuleMapper.findTestNumber(testRule.getTestNumber()) == null) {
-            testRuleMapper.addTsetRule(testRule);
-            message = "添加测试规则成功！";
-        } else {
-            message = "该条测试规则已存在！";
-        }
+//        if (testRuleMapper.findTestNumber(testRule.getTestNumber()) == null) {
+//            testRuleMapper.addTsetRule(testRule);
+//            message = "添加测试规则成功！";
+//        } else {
+//            message = "该条测试规则已存在！";
+//        }
         return message;
     }
 

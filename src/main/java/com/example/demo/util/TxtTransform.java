@@ -127,7 +127,7 @@ public class TxtTransform {
         return txtPath;
     }
 
-    private String path = "E:/RuleAssets/PICT/RuleTxt/";
+    private String path = "D:/RuleAssets/PICT/RuleTxt/";
     public String writeTxt(String content) {
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
