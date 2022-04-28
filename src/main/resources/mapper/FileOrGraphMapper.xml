@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.FileOrGraphMapper">
+
+    <!--根据交易名查询所有测试文件路径信息-->
+    <select id="getfilePathByTradeName" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage WHERE tradeName=#{tradeName}
+    </select>
+
+    <!--根据系统名查询所有的测试文件路径信息-->
+    <select id="getfilePathBySystemName" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage WHERE systemVersion=#{systemVersion}
+    </select>
+
+    <!--查询所有测试文件路径-->
+    <select id="getFileOrGraphs" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage
+    </select>
+
+    <!--根据系统名和交易名查询所有测试文件路径信息-->
+    <select id="getfilePathBySysAndTradeName" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeName}
+    </select>
+
+    <!--添加测试文件保存路径-->
+    <insert id="addFilePath" parameterType="com.example.demo.dto.FileOrGraphManage" useGeneratedKeys="true" keyProperty="id">
+        insert into filepathmanage (systemVersion,tradeName,tradeCode,fileTypeCode,testScene,savePath,userName,saveTime)
+        values (#{FileOrGraphManage.systemVersion},#{FileOrGraphManage.tradeName},#{FileOrGraphManage.tradeCode},#{FileOrGraphManage.fileTypeCode},#{FileOrGraphManage.testScene},#{FileOrGraphManage.savePath},#{FileOrGraphManage.userName},#{FileOrGraphManage.saveTime})
+    </insert>
+
+    <!--根据系统名和交易名查询指定文件类型的文件路径信息-->
+    <select id="getfilePathByTypeEnum" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeName} AND fileTypeCode=#{fileTypeCode}
+    </select>
+</mapper>
