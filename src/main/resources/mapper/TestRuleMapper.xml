@@ -7,8 +7,13 @@
         SELECT * FROM testrulemanage WHERE tradeName=#{tradeName}
     </select>
 
+    <!--根据系统名查询所有有效的测试规则-->
+    <select id="getTestRuleBySystemName" resultType="com.example.demo.dto.TestRuleManage">
+        SELECT * FROM testrulemanage WHERE systemVersion=#{systemVersion}
+    </select>
+
     <!--查询所有测试规则-->
-    <select id="getTestRules" resultType="com.example.demo.dto.TestRuleManage">
+    <select id="getTestRulesAll" resultType="com.example.demo.dto.TestRuleManage">
         SELECT * FROM testrulemanage
     </select>
 
