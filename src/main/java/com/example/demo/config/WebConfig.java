@@ -6,10 +6,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    @Value("${upload.PICT-path}")
-    private String PICTUploadPath;
-    @Value("${upload.graphwalker-path}")
-    private String GraphwalkerUploadPath;
+//    @Value("${upload.PICT-path}")
+//    private String PICTUploadPath;
+//    @Value("${upload.graphwalker-path}")
+//    private String GraphwalkerUploadPath;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 

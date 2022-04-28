@@ -31,4 +31,71 @@ public class ResultMatchDictionary {
     private String Fstandby2;
     //预留字段
     private String Fstandby3;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSystemName() {
+        return systemName;
+    }
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
+    }
+    public String getMatchingResultKey() {
+        return matchingResultKey;
+    }
+    public void setMatchingResultKey(String matchingResultKey) {
+        this.matchingResultKey = matchingResultKey;
+    }
+    public String getResultDetailDes() {
+        return resultDetailDes;
+    }
+    public void setResultDetailDes(String resultDetailDes) {
+        this.resultDetailDes = resultDetailDes;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public Time getSubmitTime() {
+        return submitTime;
+    }
+    public void setSubmitTime(Time submitTime) {
+        this.submitTime = submitTime;
+    }
+    public Time getModifyTime() {
+        return modifyTime;
+    }
+    public void setModifyTime(Time modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+    public String getFstandby1() {
+        return Fstandby1;
+    }
+    public void setFstandby1(String fstandby1) {
+        Fstandby1 = fstandby1;
+    }
+    public String getFstandby2() {
+        return Fstandby2;
+    }
+    public void setFstandby2(String fstandby2) {
+        Fstandby2 = fstandby2;
+    }
+    public String getFstandby3() {
+        return Fstandby3;
+    }
+    public void setFstandby3(String fstandby3) {
+        Fstandby3 = fstandby3;
+    }
+
+
+
+
 }
