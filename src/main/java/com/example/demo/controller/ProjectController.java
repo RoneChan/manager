@@ -199,9 +199,9 @@ public class ProjectController {
 
     //Graphwalker生成用例接口
     @RequestMapping("/graphwalkerTestCreate")
-    ResponseEntity<FileSystemResource> graphwalkerTestCreate(@RequestParam("systemName") String systemName,@RequestParam("tradeName") String tradeName,@RequestParam("uplodahmlPath") String uplodahmlPath){
+    ResponseEntity<FileSystemResource> graphwalkerTestCreate(@RequestParam("systemName") String systemName,@RequestParam("tradeName") String tradeName,@RequestParam("uplodahmlPath") String hmlPath){
         //模拟容器
-        //tradeName = "ITS发起的客户汇款往报交易";
+        //String tradeName = "ITS发起的客户汇款往报交易";
         Map<String, String> ruleTable = new HashMap<String,String>();
         ruleTable.put("解析成功","1.报文解析成功，可在业务查询查看到一条记录；\n" +
                 "2.进入业务查询页面查看解析结果，按照平台编号、报文参考号、业务种类、收报时间、币种、来报发报行、来报金额、来源渠道、去向渠道、来报种类、去报种类展示正确；");
@@ -231,9 +231,11 @@ public class ProjectController {
                 "2.进入业务查询页面查看，更新原汇款交易的业务状态、终止标识、去向方处理状态；\n" +
                 "3.将交易拒绝状态通知给ITS；");
 
-        String hmlPath = "D:\\xunleixiazai\\2022-03\\paic_03.graphml";
+        //String hmlPath = "D:\\xunleixiazai\\2022-03\\paic_03.graphml";
+        String GwPath = "E:\\RuleAssets\\Graphwalker\\Output\\graphwalker-cli-4.3.1.jar";
 
-        String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 D:\\xunleixiazai\\2022-03\\graphwalker-cli-4.3.1.jar offline -m "+ hmlPath+"quick_random(edge_coverage(100))\""};
+        // String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 D:\\xunleixiazai\\2022-03\\graphwalker-cli-4.3.1.jar offline -m D:\\xunleixiazai\\2022-03\\paic_03.graphml \"quick_random(edge_coverage(100))\""};
+        String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 "+GwPath +" offline -m "+ hmlPath+" \"quick_random(edge_coverage(100))\""};
         List<String> outputStr = new ArrayList<>(); //运行结果
         try {
             Process proc = Runtime.getRuntime().exec(cmd);
@@ -282,9 +284,12 @@ public class ProjectController {
                 }
                 useCaseInfos.add(caseInfo);
             }
-            //String tmpFileName = "E:\\RuleAssets\\Graphwalker\\Output\\+filename
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            String filename = sdf.format(d) + ".xlsx";
             //输出excel
-            String tmpFileName = "D:\\TestJavaExcel\\test2.xlsx";
+            String tmpFileName = "E:\\RuleAssets\\Graphwalker\\Output\\"+filename;
+            //String tmpFileName = "D:\\TestJavaExcel\\test2.xlsx";
             //表头
             List<List<String>> tableHeader = new ArrayList<>();
             List<String> head0 = new ArrayList<>();
