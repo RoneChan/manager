@@ -25,7 +25,7 @@
     <!--添加测试文件保存路径-->
     <insert id="addFilePath" parameterType="com.example.demo.dto.FileOrGraphManage" useGeneratedKeys="true" keyProperty="id">
         insert into filepathmanage (systemVersion,tradeName,tradeCode,fileTypeCode,testScene,savePath,userName,saveTime)
-        values (#{FileOrGraphManage.systemVersion},#{FileOrGraphManage.tradeName},#{FileOrGraphManage.tradeCode},#{FileOrGraphManage.fileTypeCode},#{FileOrGraphManage.testScene},#{FileOrGraphManage.savePath},#{FileOrGraphManage.userName},#{FileOrGraphManage.saveTime})
+        values (#{fileOrGraphManage.systemVersion},#{fileOrGraphManage.tradeName},#{fileOrGraphManage.tradeCode},#{fileOrGraphManage.fileTypeCode},#{fileOrGraphManage.testScene},#{fileOrGraphManage.savePath},#{fileOrGraphManage.userName},#{fileOrGraphManage.saveTime})
     </insert>
 
     <!--根据系统名和交易名查询指定文件类型的文件路径信息-->
