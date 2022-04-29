@@ -30,6 +30,8 @@ mybatis:
 upload:
     PICT-path: E:/RuleAssets/PICT/
     graphwalker-path: E:/RuleAssets/Graphwalker/
+    PICT-output-path: E:/RuleAssets/PICT/RuleTxt/
+    graphwalker-output-path: E:/RuleAssets/Graphwalker/Output
 
 txtpath:
   txtsavepath: E:/RuleAssets/PICT/RuleTxt/
