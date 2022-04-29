@@ -175,8 +175,10 @@ public class TxtTransform {
         int pos = fileName.indexOf(".txt");
         CMDUtil cmdUtil = new CMDUtil();
         String excelName = fileName.substring(0,pos) + ".xls";
-        String cmdStr = "cmd /c cd /d E:\\RuleAssets\\PICT\\RuleTxt && pict " + fileName+  " > " + excelName;
+        String cmdStr = "cmd /c cd /d D:\\RuleAssets\\PICT\\RuleTxt && pict " + fileName+  " > " + excelName;
+        System.out.println(cmdStr);
         cmdUtil.excuteCMDCommand(cmdStr);
+        System.out.println("Begin To generateTestCase By PICT！");
         return excelName;
     }
 }

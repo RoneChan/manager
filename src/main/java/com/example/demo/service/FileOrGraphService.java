@@ -6,7 +6,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import com.example.demo.constant.FileTypeEnum;
 
+import java.sql.Time;
+import java.sql.Date;
+
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -52,11 +56,24 @@ public class FileOrGraphService {
     }
 
     //添加测试文件保存路径
-    String addFilePath(@Param("fileOrGrqaphManage")FileOrGraphManage fileOrGrqaphManage) {
+    String addFilePath(FileOrGraphManage fileOrGraphManage) {
         String message = "";
+        fileOrGraphMapper.addFilePath(fileOrGraphManage);
+        message = "保存文件路径成功！";
         return message;
     }
 
-
+    FileOrGraphManage genFilePathManage(String systemName, String tradeName,String tradeCode, String testScene, Integer fileTypeCode, String savePath, String userName, LocalDateTime saveTime) {
+        FileOrGraphManage fileOrGraphManage = new FileOrGraphManage();
+        fileOrGraphManage.setSystemVersion(systemName);
+        fileOrGraphManage.setTradeName(tradeName);
+        fileOrGraphManage.setTradeCode(tradeCode);
+        fileOrGraphManage.setTestScene(testScene);
+        fileOrGraphManage.setFileTypeCode(fileTypeCode);
+        fileOrGraphManage.setSavePath(savePath);
+        fileOrGraphManage.setUserName(userName);
+        fileOrGraphManage.setSaveTime(saveTime);
+        return fileOrGraphManage;
+    }
 
 }

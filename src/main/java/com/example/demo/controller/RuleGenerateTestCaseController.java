@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 import com.example.demo.Vo.ResultVo;
 import com.example.demo.constant.ResutEnum;
+import com.example.demo.service.RuleGenerateTestCaseService;
 import com.example.demo.service.TestRuleService;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.util.TxtTransform;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,6 +21,9 @@ public class RuleGenerateTestCaseController {
 
     @Resource
     private TestRuleService testRuleService;
+
+    @Resource
+    private RuleGenerateTestCaseService ruleGenerateTestCaseService;
 
     @RequestMapping("/generateTestCase")
     public String generateTestCase(){
@@ -41,8 +46,8 @@ public class RuleGenerateTestCaseController {
     //通过PICT生成测试用例文件
     @GetMapping("/generateTestCaseByPICT")
     public String generateTestCaseByPICT(@RequestParam("systemVersion")String systemName, @RequestParam("tradeName")String tradeName ){
-        System.out.println("generateTestCase By PICT！");
-
-        return "Success!!!!!!";
+        System.out.println("Begin To generateTestCase By PICT！");
+        return ruleGenerateTestCaseService.generateTestCaseByPICT(systemName, tradeName);
+       //return "Success!!!!!!";
     }
 }

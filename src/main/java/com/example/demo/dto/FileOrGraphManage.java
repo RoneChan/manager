@@ -2,6 +2,8 @@ package com.example.demo.dto;
 import lombok.Data;
 
 import java.sql.Time;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author mucheng
@@ -28,7 +30,22 @@ public class FileOrGraphManage {
     // 责任人
     private String userName;
     //文件生成时间
-    private Time saveTime;
+    private LocalDateTime saveTime;
+
+    public FileOrGraphManage() {
+    }
+
+    public FileOrGraphManage(Integer id, String systemVersion, String tradeName, String tradeCode, Integer fileTypeCode, String testScene, String savePath, String userName, LocalDateTime saveTime) {
+        this.id = id;
+        this.systemVersion = systemVersion;
+        this.tradeName = tradeName;
+        this.tradeCode = tradeCode;
+        this.fileTypeCode = fileTypeCode;
+        this.testScene = testScene;
+        this.savePath = savePath;
+        this.userName = userName;
+        this.saveTime = saveTime;
+    }
 
     public Integer getId() {
         return id;
@@ -86,11 +103,11 @@ public class FileOrGraphManage {
         this.userName = userName;
     }
 
-    public Time getSaveTime() {
+    public LocalDateTime getSaveTime() {
         return saveTime;
     }
 
-    public void setSaveTime(Time saveTime) {
+    public void setSaveTime(LocalDateTime saveTime) {
         this.saveTime = saveTime;
     }
 

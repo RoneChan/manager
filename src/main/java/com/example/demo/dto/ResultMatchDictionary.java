@@ -32,6 +32,22 @@ public class ResultMatchDictionary {
     //预留字段
     private String Fstandby3;
 
+    public ResultMatchDictionary() {
+    }
+
+    public ResultMatchDictionary(Integer id, String systemName, String matchingResultKey, String resultDetailDes, String userName, Time submitTime, Time modifyTime, String fstandby1, String fstandby2, String fstandby3) {
+        this.id = id;
+        this.systemName = systemName;
+        this.matchingResultKey = matchingResultKey;
+        this.resultDetailDes = resultDetailDes;
+        this.userName = userName;
+        this.submitTime = submitTime;
+        this.modifyTime = modifyTime;
+        Fstandby1 = fstandby1;
+        Fstandby2 = fstandby2;
+        Fstandby3 = fstandby3;
+    }
+
     public Integer getId() {
         return id;
     }

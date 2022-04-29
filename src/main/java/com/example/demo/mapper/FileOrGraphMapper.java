@@ -30,7 +30,7 @@ public interface FileOrGraphMapper {
     List<FileOrGraphManage> getFileOrGraphs();
 
     //添加测试文件保存路径
-    String addFilePath(@Param("fileOrGrqaphManage")FileOrGraphManage fileOrGrqaphManage);
+    void addFilePath(@Param("fileOrGraphManage")FileOrGraphManage fileOrGraphManage);
 
 
 
