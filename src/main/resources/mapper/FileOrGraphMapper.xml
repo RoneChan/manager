@@ -29,7 +29,23 @@
     </insert>
 
     <!--根据系统名和交易名查询指定文件类型的文件路径信息-->
-    <select id="getfilePathByTypeEnum" resultType="com.example.demo.dto.FileOrGraphManage">
+    <select id="getfilePathByAll" resultType="com.example.demo.dto.FileOrGraphManage">
         SELECT * FROM filepathmanage WHERE systemVersion=#{systemVersion} AND tradeName=#{tradeName} AND fileTypeCode=#{fileTypeCode}
     </select>
+
+    <!--根据文件类型的查询文件路径信息-->
+    <select id="getfilePathByType" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage WHERE fileTypeCode=#{fileTypeCode}
+    </select>
+
+    <!--根据系统名和指定文件类型查询文件路径信息-->
+    <select id="getfilePathBySystemNameAndType" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage WHERE systemVersion=#{systemVersion} AND fileTypeCode=#{fileTypeCode}
+    </select>
+
+    <!--根据交易名和指定文件类型查询文件路径信息-->
+    <select id="getfilePathByTradeNameAndType" resultType="com.example.demo.dto.FileOrGraphManage">
+        SELECT * FROM filepathmanage WHERE AND tradeName=#{tradeName} AND fileTypeCode=#{fileTypeCode}
+    </select>
+
 </mapper>

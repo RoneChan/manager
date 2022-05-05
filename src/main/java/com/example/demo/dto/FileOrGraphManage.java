@@ -3,6 +3,7 @@ import lombok.Data;
 
 import java.sql.Time;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -31,11 +32,13 @@ public class FileOrGraphManage {
     private String userName;
     //文件生成时间
     private LocalDateTime saveTime;
+    //文件名字
+    private String fileName;
 
     public FileOrGraphManage() {
     }
 
-    public FileOrGraphManage(Integer id, String systemVersion, String tradeName, String tradeCode, Integer fileTypeCode, String testScene, String savePath, String userName, LocalDateTime saveTime) {
+    public FileOrGraphManage(Integer id, String systemVersion, String tradeName, String tradeCode, Integer fileTypeCode, String testScene, String savePath, String userName, LocalDateTime saveTime, String fileName) {
         this.id = id;
         this.systemVersion = systemVersion;
         this.tradeName = tradeName;
@@ -45,6 +48,19 @@ public class FileOrGraphManage {
         this.savePath = savePath;
         this.userName = userName;
         this.saveTime = saveTime;
+        this.fileName = fileName;
+    }
+
+    public FileOrGraphManage(String systemVersion, String tradeName, String savePath, LocalDateTime saveTime, String fileName) {
+        this.systemVersion = systemVersion;
+        this.tradeName = tradeName;
+        this.savePath = savePath;
+        this.saveTime = saveTime;
+        this.fileName = fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Integer getId() {

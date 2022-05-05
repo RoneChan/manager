@@ -24,13 +24,24 @@ public interface FileOrGraphMapper {
     List<FileOrGraphManage> getfilePathBySysAndTradeName(@Param("systemVersion")String systemVersion,@Param("tradeName")String tradeName);
 
     //根据系统名和交易名查询指定文件类型的文件路径信息
-    List<FileOrGraphManage> getfilePathByTypeEnum(@Param("systemVersion")String systemVersion,@Param("tradeName")String tradeName,@Param("fileTypeCode") Integer fileTypeCode);
+    List<FileOrGraphManage> getfilePathByTypeAll(@Param("systemVersion")String systemVersion,@Param("tradeName")String tradeName,@Param("fileTypeCode") Integer fileTypeCode);
+
+    //根据系统名和交易名查询指定文件类型的文件路径信息
+    List<FileOrGraphManage> getfilePathByType(@Param("fileTypeCode") Integer fileTypeCode);
 
     //查询所有测试文件路径
     List<FileOrGraphManage> getFileOrGraphs();
 
+
+    //根据系统名和指定文件类型查询文件路径信息
+    List<FileOrGraphManage> getfilePathBySystemNameAndType(@Param("systemVersion")String systemVersion,@Param("fileTypeCode") Integer fileTypeEnum);
+
+    //查询所有测试文件路径
+    List<FileOrGraphManage> getfilePathByTradeNameAndType(@Param("tradeName") String tradeName,@Param("fileTypeCode")Integer fileTypeEnum);
+
     //添加测试文件保存路径
     void addFilePath(@Param("fileOrGraphManage")FileOrGraphManage fileOrGraphManage);
+
 
 
 

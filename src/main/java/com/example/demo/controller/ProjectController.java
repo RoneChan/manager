@@ -79,9 +79,10 @@ public class ProjectController {
         return "sdfsdfs";
     }
 
+
+    //接受前台上传的规则库excel文件，并保存到后台服务器
     @Value("${upload.PICT-path}")
     private String PICTUploadPath;
-
     @Value("${address.webip}")
     private String IP;
     @RequestMapping("/uploadPICTDoc")
@@ -130,6 +131,7 @@ public class ProjectController {
         }
     }
 
+    //接受前台上传的GW文件，并保存到后台服务器
     @Value("${upload.graphwalker-path}")
     private String GraphwalkerUploadPath;
     @RequestMapping("/uploadGraphwalkerDoc")
@@ -180,6 +182,7 @@ public class ProjectController {
 
     }
 
+    //测试
     @RequestMapping("/CaseCreate")
     public void CaseCreate(@RequestBody List<TestRuleManage>data){
         TxtTransform transform = new TxtTransform();
@@ -187,7 +190,7 @@ public class ProjectController {
     }
 
 
-    //前端传送数据到后台
+    //前端传送规则库excel文件数据到后台
     @RequestMapping("/uploadTestRules")
     public void uploadTestRules(@RequestParam String name, @RequestBody List<TestRuleManage> data) {
         System.out.println("uploadTestRules By PICT！");

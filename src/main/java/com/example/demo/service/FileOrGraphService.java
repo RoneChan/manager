@@ -31,27 +31,44 @@ public class FileOrGraphService {
     }
 
     //根据系统名查询所有的测试文件路径信息
-    List<FileOrGraphManage> getfilePathBySystemName(String systemName) {
+    public List<FileOrGraphManage> getfilePathBySystemName(String systemName) {
         List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getfilePathBySystemName(systemName);
         return fileOrGraphManageList;
     }
 
     //根据系统名和交易名查询所有测试文件路径信息
-    List<FileOrGraphManage> getfilePathBySysAndTradeName(String systemName,String tradeName) {
+    public  List<FileOrGraphManage> getfilePathBySysAndTradeName(String systemName,String tradeName) {
         List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getfilePathBySysAndTradeName(systemName, tradeName);
         return fileOrGraphManageList;
     }
     //根据系统名和交易名查询指定文件类型的文件路径信息
-    List<FileOrGraphManage> getfilePathByTypeEnum(String systemVersion,String tradeName,FileTypeEnum fileTypeEnum) {
-        Integer fileTypeCode;
-        fileTypeCode = fileTypeEnum.getCode();
-        List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getfilePathByTypeEnum(systemVersion, tradeName, fileTypeCode);
+    public List<FileOrGraphManage> getfilePathByAll(String systemVersion,String tradeName,Integer fileTypeEnum) {
+        Integer fileTypeCode = fileTypeEnum;
+        List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getfilePathByTypeAll(systemVersion, tradeName, fileTypeCode);
+        return fileOrGraphManageList;
+    }
+
+    //根据系统名和交易名查询指定文件类型的文件路径信息
+    public List<FileOrGraphManage> getfilePathByType(Integer fileTypeEnum) {
+        Integer fileTypeCode = fileTypeEnum;
+        List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getfilePathByType(fileTypeCode);
         return fileOrGraphManageList;
     }
 
     //查询所有测试文件路径
-    List<FileOrGraphManage> getFileOrGraphs() {
+    public List<FileOrGraphManage> getFileOrGraphs() {
         List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getFileOrGraphs();
+        return fileOrGraphManageList;
+    }
+
+    //根据系统名和指定文件类型查询文件路径信息
+    public List<FileOrGraphManage> getfilePathBySystemNameAndType(String systemVersion,Integer fileTypeEnum) {
+        List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getfilePathBySystemNameAndType(systemVersion,fileTypeEnum);
+        return fileOrGraphManageList;
+    }
+    //查询所有测试文件路径
+    public List<FileOrGraphManage> getfilePathByTradeNameAndType(String tradeName,Integer fileTypeEnum) {
+        List<FileOrGraphManage> fileOrGraphManageList = fileOrGraphMapper.getfilePathByTradeNameAndType(tradeName,fileTypeEnum);
         return fileOrGraphManageList;
     }
 
