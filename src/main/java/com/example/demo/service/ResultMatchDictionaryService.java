@@ -8,7 +8,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * @author mucheng
@@ -19,6 +24,7 @@ import java.util.List;
 public class ResultMatchDictionaryService {
 
     @Resource ResultMatchMapper resultMatchMapper;
+
 
     //根据系统名查询维护的所有结果映射详情信息
     public List<ResultMatchDictionary> getResultDetailBySysName(String systemName) {
@@ -56,5 +62,30 @@ public class ResultMatchDictionaryService {
         }
         return message;
     }
+
+    //
+    public String addResultMatchConfig(String systemName, String matchingResultKey, String resultDetailDes, String userName) {
+        String message = "";
+        ResultMatchDictionary resultMatchDictionary = genResultMatchDictionary(systemName,matchingResultKey,resultDetailDes,userName);
+        addResultDetailDictionary(resultMatchDictionary);
+        message = "添加结果映射信息成功！";
+        return message;
+    }
+
+    //生成ResultDetailDictionary
+    public ResultMatchDictionary genResultMatchDictionary(String systemName, String matchingResultKey, String resultDetailDes, String userName) {
+        ResultMatchDictionary resultMatchDictionary = new ResultMatchDictionary();
+        resultMatchDictionary.setSystemName(systemName);
+        resultMatchDictionary.setMatchingResultKey(matchingResultKey);
+        resultMatchDictionary.setResultDetailDes(resultDetailDes);
+        resultMatchDictionary.setUserName(userName);
+        //获取当前时间
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        resultMatchDictionary.setSubmitTime(now);
+        resultMatchDictionary.setModifyTime(now);
+        return resultMatchDictionary;
+    }
+
 
 }
