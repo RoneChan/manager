@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @description: 预期结果映射字典维护的Controller
  * */
 @RestController
-@RequestMapping("/ResultMatchConfig/*")
+@RequestMapping("/resultMatchConfig/*")
 public class ResultMatchController {
 
     @Resource

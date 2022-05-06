@@ -27,7 +27,7 @@ public interface ResultMatchMapper {
     List<ResultMatchDictionary> getResultDetails();
 
     //新增结果映射详情字典信息
-    String addResultDetailDictionary(@Param("resultMatchDictionary")ResultMatchDictionary resultMatchDictionary);
+    void addResultDetailDictionary(@Param("resultMatchDictionary")ResultMatchDictionary resultMatchDictionary);
 
     //修改结果映射详情字典信息
     String modifyResultDetailDictionary(@Param("resultMatchDictionary")ResultMatchDictionary resultMatchDictionary);
