@@ -51,6 +51,12 @@ public class ResultMatchDictionaryService {
         return resultDetail;
     }
 
+    //根据系统名称查询结果映射详情信息字典
+    public List<ResultMatchDictionary> getResultDicBySysName(String systemName) {
+        List<ResultMatchDictionary> resultDetail = resultMatchMapper.getResultDicBySysName(systemName);
+        return resultDetail;
+    }
+
     //新增结果映射详情字典信息
     public String addResultDetailDictionary(ResultMatchDictionary resultMatchDictionary) {
         String message = "";

@@ -26,6 +26,8 @@ public interface ResultMatchMapper {
     //查询结果映射详情信息字典
     List<ResultMatchDictionary> getResultDetails();
 
+    List<ResultMatchDictionary> getResultDicBySysName(@Param("systemName")String systemName);
+
     //新增结果映射详情字典信息
     void addResultDetailDictionary(@Param("resultMatchDictionary")ResultMatchDictionary resultMatchDictionary);
 

@@ -23,9 +23,9 @@ public class ResultMatchController {
 
     // 查询结果映射字典信息
     @RequestMapping("/getResultDetails")
-    public ResultVo getResultDetails(){
-        System.out.println("Hello World");
-        return new ResultVo(ResutEnum.OK,resultMatchDictionaryService.getResultDetails());
+    public ResultVo getResultDetails(@RequestParam("systemName")String systemName){
+        System.out.println("getResultDetails");
+        return new ResultVo(ResutEnum.OK,resultMatchDictionaryService.getResultDicBySysName(systemName));
     }
 
     //添加结果映射字典信息

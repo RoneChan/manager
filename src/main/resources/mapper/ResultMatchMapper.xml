@@ -7,14 +7,23 @@
         SELECT * FROM resultmatchdic WHERE systemName=#{systemName};
     </select>
 
-    <!--查询所有测试规则-->
+    <!--查询所有结果映射信息-->
     <select id="getResultDetails" resultType="com.example.demo.dto.ResultMatchDictionary">
         SELECT * FROM resultmatchdic;
     </select>
+    <!--根据系统名称查询结果映射信息-->
+    <select id="getResultDicBySysName" resultType="com.example.demo.dto.ResultMatchDictionary">
+        SELECT * FROM resultmatchdic WHERE systemName=#{systemName};
+    </select>
+
 
     <!--新增结果映射详情字典信息-->
     <insert id="addResultDetailDictionary" parameterType="com.example.demo.dto.ResultMatchDictionary" useGeneratedKeys="true" keyProperty="id">
         insert into resultmatchdic (systemName,matchingResultKey,resultDetailDes,userName,submitTime,modifyTime,Fstandby1,Fstandby2,Fstandby3)
         values (#{resultMatchDictionary.systemName},#{resultMatchDictionary.matchingResultKey},#{resultMatchDictionary.resultDetailDes},#{resultMatchDictionary.userName},#{resultMatchDictionary.submitTime},#{resultMatchDictionary.modifyTime},#{resultMatchDictionary.Fstandby1},#{resultMatchDictionary.Fstandby2},#{resultMatchDictionary.Fstandby3})
     </insert>
+
+    <select id="findMatchKey" resultType="com.example.demo.dto.ResultMatchDictionary">
+        SELECT * FROM resultmatchdic WHERE matchingResultKey=#{matchingResultKey};
+    </select>
 </mapper>
