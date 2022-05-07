@@ -3,10 +3,9 @@ package com.example.demo.controller;
 import com.example.demo.dto.TestRuleManage;
 import com.example.demo.entity.*;
 import com.example.demo.service.*;
+import com.example.demo.util.PICTUseCase;
 import com.example.demo.util.TxtTransform;
 import com.alibaba.excel.EasyExcel;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -76,8 +76,11 @@ public class ProjectController {
 
     @RequestMapping("/test")
     String test(){
-        return "sdfsdfs";
+        PICTUseCase pictUseCase = new PICTUseCase();
+        String path = pictUseCase.getPICTUseCase("转数快","20220429162447398.txt");
+        return path;
     }
+
 
 
     //接受前台上传的规则库excel文件，并保存到后台服务器
@@ -235,7 +238,7 @@ public class ProjectController {
                 "3.将交易拒绝状态通知给ITS；");
 
         //String hmlPath = "D:\\xunleixiazai\\2022-03\\paic_03.graphml";
-        String GwPath = "D:\\RuleAssets\\Graphwalker\\output\\graphwalker-cli-4.3.1.jar";
+        String GwPath = "E:\\RuleAssets\\Graphwalker\\output\\graphwalker-cli-4.3.1.jar";
 
         // String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 D:\\xunleixiazai\\2022-03\\graphwalker-cli-4.3.1.jar offline -m D:\\xunleixiazai\\2022-03\\paic_03.graphml \"quick_random(edge_coverage(100))\""};
         String[] cmd = {"cmd", "/C", "java -jar -Dfile.encoding=utf-8 "+GwPath +" offline -m "+ hmlPath+" \"quick_random(edge_coverage(100))\""};
@@ -320,7 +323,10 @@ public class ProjectController {
                 data.add(caseInfo.getResult());
                 dataList.add(data);
             }
-            EasyExcel.write(tmpFileName).head(tableHeader).sheet("Use Cases").doWrite(dataList);
+
+            EasyExcel.write(tmpFileName,UseCaseInfo.class).sheet("Use Cases").doWrite(dataList);
+            // EasyExcel.write(tmpFileName).head(tableHeader).sheet("Use Cases").doWrite(dataList);
+
             //返回文件
             String contentDisposition = ContentDisposition
                     .builder("attachment")

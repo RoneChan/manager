@@ -1,12 +1,27 @@
 package com.example.demo.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.util.List;
 import java.util.Map;
 
 public class UseCaseInfo {
+    @ExcelProperty(value = "用例描述", index = 0)
     String description; //用例描述
+
+    @ExcelProperty(value = "测试步骤", index = 1)
     String steps; //测试步骤
+
+    @ExcelProperty(value = "预期结果", index = 2)
     String result; //预期结果
+
+    public UseCaseInfo(){}
+
+    public UseCaseInfo(String description, String steps, String result) {
+        this.description = description;
+        this.steps = steps;
+        this.result = result;
+    }
 
     public String getDescription() {
         return description;
@@ -18,6 +33,18 @@ public class UseCaseInfo {
 
     public String getResult() {
         return result;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSteps(String steps) {
+        this.steps = steps;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     //usecase:v-e-v
