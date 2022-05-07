@@ -175,7 +175,7 @@ public class ProjectController {
 
             //将文件在服务器的存储路径返回
             response.setContentType("text/html;charset=utf-8");
-            response.getWriter().print("E:/RuleAssets/Graphwalker/" + fileName);
+            response.getWriter().print("D:/RuleAssets/Graphwalker/" + fileName);
 
         } catch (IOException e) {
             System.out.println("上传失败");
@@ -294,7 +294,7 @@ public class ProjectController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
             String filename = sdf.format(d) + ".xlsx";
             //输出excel
-            String tmpFileName = "E:\\RuleAssets\\Graphwalker\\Output\\"+filename;
+            String tmpFileName = "D:\\RuleAssets\\Graphwalker\\Output\\"+filename;
             //String tmpFileName = "D:\\TestJavaExcel\\test2.xlsx";
             //表头
             List<List<String>> tableHeader = new ArrayList<>();
@@ -330,7 +330,7 @@ public class ProjectController {
             //返回文件
             String contentDisposition = ContentDisposition
                     .builder("attachment")
-                    .filename("UseCases.xlsx")
+                    .filename("UseCases.xls")
                     .build().toString();
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)

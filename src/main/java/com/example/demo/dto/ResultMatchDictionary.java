@@ -2,6 +2,7 @@ package com.example.demo.dto;
 import lombok.Data;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 /**
  * @author mucheng
@@ -22,9 +23,9 @@ public class ResultMatchDictionary {
     // 规则字典维护人员
     private String userName;
     //提交时间
-    private Time submitTime;
+    private LocalDateTime submitTime;
     //修改时间
-    private Time modifyTime;
+    private LocalDateTime modifyTime;
     //预留字段
     private String Fstandby1;
     //预留字段
@@ -35,7 +36,7 @@ public class ResultMatchDictionary {
     public ResultMatchDictionary() {
     }
 
-    public ResultMatchDictionary(Integer id, String systemName, String matchingResultKey, String resultDetailDes, String userName, Time submitTime, Time modifyTime, String fstandby1, String fstandby2, String fstandby3) {
+    public ResultMatchDictionary(Integer id, String systemName, String matchingResultKey, String resultDetailDes, String userName, LocalDateTime submitTime, LocalDateTime modifyTime, String fstandby1, String fstandby2, String fstandby3) {
         this.id = id;
         this.systemName = systemName;
         this.matchingResultKey = matchingResultKey;
@@ -80,16 +81,16 @@ public class ResultMatchDictionary {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    public Time getSubmitTime() {
+    public LocalDateTime getSubmitTime() {
         return submitTime;
     }
-    public void setSubmitTime(Time submitTime) {
+    public void setSubmitTime(LocalDateTime submitTime) {
         this.submitTime = submitTime;
     }
-    public Time getModifyTime() {
+    public LocalDateTime getModifyTime() {
         return modifyTime;
     }
-    public void setModifyTime(Time modifyTime) {
+    public void setModifyTime(LocalDateTime modifyTime) {
         this.modifyTime = modifyTime;
     }
     public String getFstandby1() {
